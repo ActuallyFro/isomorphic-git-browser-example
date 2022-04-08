@@ -1,0 +1,116 @@
+<!-- example website showing isomorphic git in a browser -->
+<html>
+    <head>
+        <title>Ex01</title>
+        <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    </head>
+<body>
+
+    <h1>Ex01</h1>
+<p>
+<a href="Ex01.html">Ex01</a>
+<a href="Ex02.html">Ex02</a>
+
+</p>
+
+<!-- <script src="https://unpkg.com/@isomorphic-git/lightning-fs">
+// https://unpkg.com/@isomorphic-git/lightning-fs@4.6.0/dist/lightning-fs.min.js
+</script> -->
+<!-- <script src="https://unpkg.com/isomorphic-git">
+// https://unpkg.com/isomorphic-git@1.17.0/index.umd.min.js
+</script> -->
+
+<script src="./include/lightning-fs-min-4-6-0.js"></script>
+<script src="./include/index-isomorphic-git-1-17-0.js"></script> <!-- This NEEDS map -- leaving its default name! -->
+
+
+<script type="module">
+  // import http from 'https://unpkg.com/isomorphic-git/http/web/index.js'
+  // //https://unpkg.com/isomorphic-git@1.17.0/http/web/index.js
+
+  import http from './include/index-isomorphic-git-1-17-0-http-web.js'
+
+  // Initialize isomorphic-git with a file system
+  window.fs = new LightningFS('fs')
+  // I prefer using the Promisified version honestly
+  window.pfs = window.fs.promises
+</script>
+
+
+<!-- div that shows console results -->
+<div id="consoleDiv"></div>
+
+<hr>
+
+<!-- createDir() javascript -->
+<script type="text/javascript">
+function createDir() {
+    // // create a directory
+    // pfs.mkdir('/', 'dir1')
+    // .then(() => {
+    //     // create a file in the directory
+
+    //     return pfs.writeFile('/dir1/file1.txt', 'Hello World!')
+
+    window.dir = '/tutorial'
+    console.log(dir);
+
+// async (() => {
+//    await git.clone({
+//       fs,
+//       dir,
+//       url: 'https://github.com/isomorphic-git/isomorphic-git',
+//       ref: 'master',
+//       singleBranch: true,
+//       depth: 10
+//   });
+// })();
+
+// async (() => {
+//   await pfs.mkdir(dir);
+// })();
+
+    pfs.mkdir(dir);
+
+    // Behold - it is empty!
+    // await pfs.readdir(dir);
+    pfs.readdir(dir);
+
+
+}
+
+
+</script>
+
+<!-- button that runs createDir() javascript -->
+<button onclick="createDir()">Create Directory</button>
+
+
+<script>
+    // https://www.w3schools.com/js/tryit.asp?filename=tryjs_async1
+    function myDisplayer(some) {
+      document.getElementById("consoleDiv").innerHTML = some;
+    }
+    
+    async function myFunction() {return "Hello";}
+    
+    myFunction().then(
+      function(value) {myDisplayer(value);}
+    );
+</script>
+
+<h1 id="demo"></h1>
+
+<script>
+async function myDisplay() {
+  let myPromise = new Promise(function(resolve, reject) {
+    resolve("I love You !!");
+  });
+  document.getElementById("demo").innerHTML = await myPromise;
+}
+
+myDisplay();
+</script>
+
+</body>
+</html>
